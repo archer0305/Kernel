@@ -83,7 +83,7 @@ jobs:
         git clone -b ${{ matrix.branch }} --recursive https://github.com/archer0305/kernel_samsung_sm8550-common.git common
         cp -f clang.sh ${GITHUB_WORKSPACE}/common
         cd ${GITHUB_WORKSPACE}/common
-        curl -LSs "https://raw.githubusercontent.com/KOWX712/KernelSU/refs/heads/master/kernel/setup.sh" | bash -s master
+        curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s dev
         chmod +x clang.sh
         ./clang.sh
       continue-on-error: true        
@@ -121,7 +121,7 @@ jobs:
     - name: Packing Zip
       run: |
         cd ${GITHUB_WORKSPACE}/AnyKernel3
-        7z a $KERNEL_VERSION-${{ matrix.branch }}.zip *
+        7z a $KERNEL_VERSION.zip *
       continue-on-error: true
   
     - name: Publish to GitHub
@@ -134,7 +134,7 @@ jobs:
         name: Release Kernel
         tag_name: ${{ github.run_id }}
         body: |
-          ChangeLog : Nothing
+          ChangeLog :
       env:
         GITHUB_TOKEN: ${{ secrets.TEST }}
       continue-on-error: true   
